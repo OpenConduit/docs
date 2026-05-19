@@ -28,5 +28,6 @@ Several features already anticipate #38:
 | `AppNotification.source` | Identifies which extension fired the notification |
 | `extraTabs` prop on `SettingsPanel` | Extensions can inject settings tabs today |
 | `settingsRegistry` + `SettingsContribution` | Schema-driven settings UI is live (#37) — registration API is ready |
+| `bottomPanelRegistry` + `BottomPanelTab` | Bottom panel tab registration is live (#18) — registration API is ready |
 
-See [Extension Manifest](/extensions/manifest), [Commands](/extensions/commands), and [Settings](/extensions/settings) for the planned API design.
+See [Extension Manifest](/extensions/manifest), [Commands](/extensions/commands), [Settings](/extensions/settings), and [Bottom Panel](/extensions/bottom-panel) for the planned API design.
