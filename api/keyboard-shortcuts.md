@@ -10,6 +10,7 @@ This hook is the precursor to the [#38 command registry](/extensions/commands). 
 |---|---|
 | `⌘K` / `Ctrl+K` | Open command palette |
 | `⌘,` / `Ctrl+,` | Open settings |
+| `⌘J` / `Ctrl+J` | Toggle bottom panel |
 | `⌘T` / `Ctrl+T` | New conversation |
 | `⌘N` / `Ctrl+N` | New conversation (alias) |
 | `⌘W` / `Ctrl+W` | Close active tab |

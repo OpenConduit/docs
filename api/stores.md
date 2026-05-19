@@ -36,6 +36,10 @@ import { useUiStore } from '@openconduit/core';
 | `setActiveConversation` | `(id: string \| null) => void` | Sets the active conversation |
 | `setShowSettings` | `(v: boolean) => void` | Opens/closes the settings panel |
 | `setCommandPaletteOpen` | `(v: boolean) => void` | Opens/closes the command palette |
+| `toggleBottomPanel` | `() => void` | Toggles the bottom panel open/closed |
+| `setBottomPanelOpen` | `(v: boolean) => void` | Sets bottom panel open state |
+| `setBottomPanelHeight` | `(h: number) => void` | Sets bottom panel height (px); persisted to `localStorage` |
+| `setBottomPanelActiveTab` | `(tab: string) => void` | Sets the active bottom panel tab id; persisted to `localStorage` |
 | `addNotification` | `(payload: Omit<AppNotification, 'id' \| 'timestamp' \| 'read'>) => void` | Fires an in-app notification |
 | `markRead` | `(id: string) => void` | Marks a single notification as read |
 | `markAllRead` | `() => void` | Marks all notifications as read |
@@ -53,6 +57,16 @@ addNotification({
 ```
 
 Payloads are intentionally serializable (no React nodes) so that future extension callers (#38) can fire them over IPC.
+
+### Bottom Panel State
+
+| State | Type | Default | Description |
+|---|---|---|---|
+| `bottomPanelOpen` | `boolean` | `false` | Whether the panel is visible |
+| `bottomPanelHeight` | `number` | `240` | Panel height in px (min 100, max 600) |
+| `bottomPanelActiveTab` | `string` | `'tool-calls'` | Active tab id — kept as `string` so extension tabs work without type changes |
+
+See [Bottom Panel Contributions](/extensions/bottom-panel) for programmatic usage.
 
 ## `settingsStore`
 
@@ -132,6 +146,27 @@ interface AiTask {
   status: 'pending' | 'in-progress' | 'done' | 'cancelled';
 }
 ```
+
+---
+
+## `useDebugConsoleStore`
+
+Ring-buffer store (max 500 entries) that backs the Debug Console panel tab.
+
+```ts
+import { useDebugConsoleStore } from '@openconduit/core';
+```
+
+| State | Type | Description |
+|---|---|---|
+| `entries` | `DebugEntry[]` | All log entries, oldest first |
+
+| Action | Signature | Description |
+|---|---|---|
+| `addEntry` | `(level, message, data?) => void` | Appends an entry |
+| `clear` | `() => void` | Empties the ring buffer |
+
+Prefer the [`debugConsole`](/guide/debug-console) helper over calling `addEntry` directly.
 
 ---
 
