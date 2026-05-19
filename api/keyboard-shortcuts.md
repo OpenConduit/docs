@@ -1,19 +1,21 @@
 # Keyboard Shortcuts
 
-All global keyboard shortcuts are defined in [`useKeyboardShortcuts`](https://github.com/OpenConduit/core/blob/dev/src/hooks/useKeyboardShortcuts.ts) — a single hook mounted in `App.tsx`.
+All global keyboard shortcuts are driven by the [`commandRegistry`](/extensions/commands). Each `CommandContribution` with a `keybinding` field is automatically wired by `useKeyboardShortcuts` — a single hook mounted in `App.tsx`.
 
-This hook is the precursor to the [#38 command registry](/extensions/commands). Each entry here will become a `CommandContribution` with an `id`, `label`, and `keybinding`.
+To add a shortcut, [register a command](/extensions/commands#quick-start) with a `keybinding`. No changes to `useKeyboardShortcuts` are needed.
 
 ## Current Bindings
 
-| Shortcut | Action |
-|---|---|
-| `⌘K` / `Ctrl+K` | Open command palette |
-| `⌘,` / `Ctrl+,` | Open settings |
-| `⌘J` / `Ctrl+J` | Toggle bottom panel |
-| `⌘T` / `Ctrl+T` | New conversation |
-| `⌘N` / `Ctrl+N` | New conversation (alias) |
-| `⌘W` / `Ctrl+W` | Close active tab |
+Built-in commands are defined in `src/commands/coreCommandContributions.ts`:
+
+| Shortcut | Command ID | Action |
+|---|---|---|
+| `⌘K` / `Ctrl+K` | `core.openCommandPalette` | Open command palette |
+| `⌘,` / `Ctrl+,` | `core.openSettings` | Open settings |
+| `⌘J` / `Ctrl+J` | `core.toggleBottomPanel` | Toggle bottom panel |
+| `⌘T` / `Ctrl+T` | `core.newConversation` | New conversation |
+| `⌘N` / `Ctrl+N` | `core.newConversationAlt` | New conversation (alias) |
+| `⌘W` / `Ctrl+W` | `core.closeTab` | Close active tab |
 
 Tab bar context menu shortcuts:
 
@@ -24,15 +26,18 @@ Tab bar context menu shortcuts:
 
 ## Adding a Shortcut
 
-Add a new `if` block to the `handler` function in `useKeyboardShortcuts.ts`:
+Register a command with a `keybinding` in your contribution file:
 
 ```ts
-// ⌘⇧E — Export conversation
-if (mod && e.shiftKey && e.key === 'e') {
-  e.preventDefault();
-  // ... action
-  return;
-}
+import { commandRegistry } from '@openconduit/core';
+
+commandRegistry.register({
+  id: 'my-ext.exportConversation',
+  label: 'Export conversation',
+  shortcut: '⌘⇧E',
+  keybinding: { key: 'e', mod: true, shift: true },
+  action: () => { /* ... */ },
+});
 ```
 
-Custom keybinding support (user-configurable bindings) is planned as part of the #38 extension platform.
+The shortcut is active immediately after registration — no restart required.

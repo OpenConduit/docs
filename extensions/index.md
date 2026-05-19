@@ -29,5 +29,6 @@ Several features already anticipate #38:
 | `extraTabs` prop on `SettingsPanel` | Extensions can inject settings tabs today |
 | `settingsRegistry` + `SettingsContribution` | Schema-driven settings UI is live (#37) — registration API is ready |
 | `bottomPanelRegistry` + `BottomPanelTab` | Bottom panel tab registration is live (#18) — registration API is ready |
+| `commandRegistry` + `CommandContribution` | Command + keybinding registration is live (#38 Phase 1) — extensions can register commands today |
 
-See [Extension Manifest](/extensions/manifest), [Commands](/extensions/commands), [Settings](/extensions/settings), and [Bottom Panel](/extensions/bottom-panel) for the planned API design.
+See [Extension Manifest](/extensions/manifest), [Commands](/extensions/commands), [Settings](/extensions/settings), and [Bottom Panel](/extensions/bottom-panel) for the API reference.
