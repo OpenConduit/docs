@@ -74,16 +74,134 @@ import { useSettingsStore } from '@openconduit/core';
 
 ## `analyticsStore`
 
-Tracks token usage and cost per message.
+Tracks token usage and cost per conversation. Persisted to `localStorage` under `openconduit-analytics`.
+
+```ts
+import { useAnalyticsStore } from '@openconduit/core';
+```
+
+| State | Type | Description |
+|---|---|---|
+| `records` | `UsageRecord[]` | All usage records, newest first |
+
+| Action | Signature | Description |
+|---|---|---|
+| `addRecord` | `(params, pricing?) => void` | Appends a `UsageRecord`; computes USD cost if pricing data is available |
+| `clearRecords` | `() => void` | Wipes all records |
+
+### `addRecord` params
+
+```ts
+addRecord(
+  {
+    conversationId: string;
+    providerId: string;
+    model: string;
+    usage: TokenUsage; // { inputTokens, outputTokens }
+  },
+  pricing?: ModelPricing, // optional — from provider registry
+)
+```
+
+---
 
 ## `tasksStore`
 
-Manages AI-generated task lists (floating `TasksPanel`).
+Holds the AI-generated task list for the active conversation. The task list is extracted from `<ai-tasks>` XML blocks in AI responses by `useChat` and replaced in full on every update.
+
+```ts
+import { useTasksStore } from '@openconduit/core';
+```
+
+| State | Type | Description |
+|---|---|---|
+| `tasks` | `AiTask[]` | Current task list |
+| `conversationId` | `string \| null` | Conversation the tasks belong to |
+
+| Action | Signature | Description |
+|---|---|---|
+| `setTasks` | `(tasks: AiTask[], conversationId: string) => void` | Replace the full task list |
+| `clearTasks` | `() => void` | Clear tasks and `conversationId` |
+
+### `AiTask`
+
+```ts
+interface AiTask {
+  id: string;
+  text: string;
+  status: 'pending' | 'in-progress' | 'done' | 'cancelled';
+}
+```
+
+---
 
 ## `personasStore`
 
-Manages persona definitions (name, color, system prompt).
+Manages personas (named system-prompt presets). Persisted to `localStorage` under `openconduit-personas`. The `default` persona always exists and cannot be deleted.
 
-## `filesStore`
+```ts
+import { usePersonasStore } from '@openconduit/core';
+```
 
-Manages saved files per conversation.
+| State | Type | Description |
+|---|---|---|
+| `personas` | `Persona[]` | All personas including defaults |
+
+| Action | Signature | Description |
+|---|---|---|
+| `addPersona` | `(partial: Omit<Persona, 'id' \| 'isDefault'>) => Persona` | Creates and returns a new persona |
+| `updatePersona` | `(id, updates) => void` | Update name, color, or systemPrompt (blocked on `isDefault` personas) |
+| `deletePersona` | `(id) => void` | Delete a non-default persona |
+| `duplicatePersona` | `(id) => Persona \| null` | Clone a persona with a new id |
+| `importPersonas` | `(personas: Persona[]) => void` | Bulk-import personas (merges by id) |
+| `getPersona` | `(id) => Persona \| undefined` | Look up a persona by id |
+
+### `Persona`
+
+```ts
+interface Persona {
+  id: string;
+  name: string;
+  systemPrompt: string;
+  color: string;   // hex color for the avatar badge
+  isDefault: boolean;
+}
+```
+
+---
+
+## `useSavedFilesStore`
+
+Stores files that were saved from conversations (e.g. AI-generated artifacts). Persisted to `localStorage` under `openconduit-files`.
+
+::: warning Note
+The export name is `useSavedFilesStore`, not `useFilesStore`.
+:::
+
+```ts
+import { useSavedFilesStore } from '@openconduit/core';
+```
+
+| State | Type | Description |
+|---|---|---|
+| `files` | `SavedFile[]` | All saved files, newest first |
+
+| Action | Signature | Description |
+|---|---|---|
+| `saveFile` | `(file: Omit<SavedFile, 'id' \| 'savedAt'>) => string` | Saves and returns the new file id |
+| `renameFile` | `(id, name) => void` | Rename a file |
+| `deleteFile` | `(id) => void` | Delete a file |
+
+### `SavedFile`
+
+```ts
+interface SavedFile {
+  id: string;
+  name: string;
+  content: string;
+  mimeType: string;
+  size: number;
+  conversationId?: string;
+  savedAt: number;
+}
+```

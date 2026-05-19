@@ -31,6 +31,8 @@ export default defineConfig({
           text: 'API Reference',
           items: [
             { text: 'Stores', link: '/api/stores' },
+            { text: 'Hooks', link: '/api/hooks' },
+            { text: 'Components', link: '/api/components' },
             { text: 'Types', link: '/api/types' },
             { text: 'IPC Channels', link: '/api/ipc-channels' },
             { text: 'Keyboard Shortcuts', link: '/api/keyboard-shortcuts' },
