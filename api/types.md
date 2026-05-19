@@ -96,6 +96,81 @@ interface McpServerConfig {
 }
 ```
 
+## Settings Contribution Types
+
+All exported from `@openconduit/core`. Used by the schema-driven settings UI ([issue #37](https://github.com/OpenConduit/core/issues/37)).
+
+```ts
+import type { SettingsContribution, SettingsSection, SettingsProperty } from '@openconduit/core';
+```
+
+### `SettingsContribution`
+
+```ts
+interface SettingsContribution {
+  id: string;
+  label: string;
+  order: number;
+  sections: SettingsSection[];
+}
+```
+
+### `SettingsSection`
+
+```ts
+interface SettingsSection {
+  title: string;
+  description?: string;
+  properties: SettingsProperty[];
+}
+```
+
+### `SettingsProperty`
+
+```ts
+type SettingsProperty =
+  | SettingsStringProperty
+  | SettingsNumberProperty
+  | SettingsBooleanProperty;
+
+interface SettingsStringProperty {
+  type: 'string';
+  key: string;
+  title: string;
+  description?: string;
+  default?: string;
+  enum?: string[];
+  enumDescriptions?: string[];
+  placeholder?: string;
+  sensitive?: boolean;
+  multiline?: boolean;
+  order?: number;
+}
+
+interface SettingsNumberProperty {
+  type: 'number';
+  key: string;
+  title: string;
+  description?: string;
+  default?: number;
+  minimum?: number;
+  maximum?: number;
+  step?: number;
+  order?: number;
+}
+
+interface SettingsBooleanProperty {
+  type: 'boolean';
+  key: string;
+  title: string;
+  description?: string;
+  default?: boolean;
+  order?: number;
+}
+```
+
+See [Settings Contributions](/extensions/settings) for usage examples.
+
 ## Update / Feedback
 
 ### `UpdateInfo`

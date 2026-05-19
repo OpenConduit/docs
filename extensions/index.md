@@ -27,5 +27,6 @@ Several features already anticipate #38:
 | `addNotification` in `uiStore` | Serializable payload, `source` field for extension id |
 | `AppNotification.source` | Identifies which extension fired the notification |
 | `extraTabs` prop on `SettingsPanel` | Extensions can inject settings tabs today |
+| `settingsRegistry` + `SettingsContribution` | Schema-driven settings UI is live (#37) — registration API is ready |
 
 See [Extension Manifest](/extensions/manifest), [Commands](/extensions/commands), and [Settings](/extensions/settings) for the planned API design.

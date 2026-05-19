@@ -28,6 +28,9 @@ All IPC handlers live in `packages/desktop/src/main/ipc.ts`. The context bridge 
 |---|---|---|
 | `settings:get` | renderer → main | Read settings from `electron-store` |
 | `settings:set` | renderer → main | Write settings to `electron-store` |
+| `settings:open-file` | renderer → main | Open `settings.json` in the system default editor |
+| `settings:export` | renderer → main | Export settings to a user-chosen `.json` file |
+| `settings:import` | renderer → main | Import settings from a `.json` file, merging with current |
 
 ## `updater:*`
 
