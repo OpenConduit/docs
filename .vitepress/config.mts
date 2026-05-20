@@ -50,6 +50,7 @@ export default defineConfig({
             { text: 'Command Contributions', link: '/extensions/commands' },
             { text: 'Settings Contributions', link: '/extensions/settings' },
             { text: 'Bottom Panel Contributions', link: '/extensions/bottom-panel' },
+            { text: 'Extension API', link: '/extensions/api' },
           ],
         },
       ],

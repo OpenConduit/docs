@@ -11,6 +11,7 @@ OpenConduit has a first-class extension system modeled loosely after VS Code's c
 - Contribute **settings** (schema-driven UI in the Settings panel)
 - Add **bottom panel tabs**
 - Add **notification** messages (via `addNotification` over IPC)
+- Use the **`ExtensionAPI`** in an `activate(api)` hook to read/write conversations, settings, UI state, and shared stores (#55)
 
 ## How It Works
 
@@ -36,5 +37,6 @@ First-party features are implemented as built-in extensions registered at module
 | `settingsRegistry` + `SettingsContribution` | ✅ Live — schema-driven settings UI |
 | `bottomPanelRegistry` + `BottomPanelTab` | ✅ Live — bottom panel tab registration |
 | `addNotification` in `uiStore` | ✅ Live — `AppNotification.source` carries extension id |
+| `ExtensionAPI` + `activate(api)` | ✅ Live — full runtime API surface (#55) |
 
-See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Settings](/extensions/settings), and [Bottom Panel](/extensions/bottom-panel) for the API reference.
+See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), and [Extension API](/extensions/api) for the API reference.

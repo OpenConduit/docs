@@ -34,6 +34,8 @@ window.__openConduit.extensionRegistry.registerExtension(
 | `entryPoint` | `string` | ✅ | Absolute path to the JS bundle read by the preload bridge |
 | `description` | `string` | — | Short description |
 | `author` | `string` | — | Author name or org |
+| `permissions` | `string[]` | — | Permission strings required by write-access API methods. See [Extension API → Permissions](/extensions/api#permissions). |
+| `activate` | `(api: ExtensionAPI) => void \| Promise<void>` | — | Lifecycle hook called once after all contributions are registered. Receives the [Extension API](/extensions/api). |
 
 ## `registerExtension` — `ExtensionManifest`
 
@@ -50,6 +52,8 @@ interface ExtensionManifest {
     activityBarItems?: ActivityBarContribution[];
     commands?: CommandContribution[];
   };
+  permissions?: string[];
+  activate?: (api: ExtensionAPI) => void | Promise<void>;
 }
 ```
 
@@ -59,3 +63,24 @@ interface ExtensionManifest {
 |---|---|
 | `activityBarItems` | [Activity Bar Contributions](/extensions/activity-bar) |
 | `commands` | [Command Contributions](/extensions/commands) |
+
+## `activate(api)`
+
+The `activate` function is called once after all contributions are registered. Use it to interact with the host application via the [`ExtensionAPI`](/extensions/api).
+
+```ts
+window.__openConduit.extensionRegistry.registerExtension(
+  {
+    id: 'acme.my-extension',
+    name: 'My Extension',
+    version: '1.0.0',
+    permissions: ['conversations.write'],
+    activate(api) {
+      api.ui.showNotification({ message: 'My Extension activated!' });
+    },
+  },
+  { /* contributions */ },
+);
+```
+
+See [Extension API](/extensions/api) for the full method reference.
