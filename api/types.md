@@ -171,6 +171,65 @@ interface SettingsBooleanProperty {
 
 See [Settings Contributions](/extensions/settings) for usage examples.
 
+## Extension Types
+
+All exported from `@openconduit/core`. Used by the extension loader and registry.
+
+```ts
+import type {
+  InstalledExtensionInfo,
+  ExtensionManifest,
+  ActivityBarContribution,
+} from '@openconduit/core';
+```
+
+### `InstalledExtensionInfo`
+
+Returned by `extensions:get-installed` IPC. Describes an extension installed to `userData/extensions/<id>/`.
+
+```ts
+interface InstalledExtensionInfo {
+  id: string;
+  name: string;
+  version: string;
+  /** Absolute path to the JS bundle, read by the preload bridge. */
+  entryPoint: string;
+}
+```
+
+### `ExtensionManifest`
+
+The manifest object passed to `extensionRegistry.registerExtension()` by an extension's entry point at runtime.
+
+```ts
+interface ExtensionManifest {
+  id: string;
+  name: string;
+  version: string;
+  description?: string;
+  author?: string;
+  contributes?: {
+    activityBarItems?: ActivityBarContribution[];
+    commands?: CommandContribution[];
+  };
+}
+```
+
+### `ActivityBarContribution`
+
+```ts
+interface ActivityBarContribution {
+  panelId: string;
+  label: string;
+  icon: React.ReactNode;
+  panel: React.ComponentType;
+  /** Render order in the dynamic section. Lower = higher in the bar. @default 50 */
+  order?: number;
+}
+```
+
+See [Activity Bar Contributions](/extensions/activity-bar) for usage.
+
 ## Update / Feedback
 
 ### `UpdateInfo`

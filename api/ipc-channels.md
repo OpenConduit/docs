@@ -44,3 +44,9 @@ All IPC handlers live in `packages/desktop/src/main/ipc.ts`. The context bridge 
 | Channel | Direction | Description |
 |---|---|---|
 | `feedback:submit` | renderer → main | Post feedback to Cloudflare Worker `POST /feedback` → GitHub Issue |
+
+## `extensions:*`
+
+| Channel | Direction | Description |
+|---|---|---|
+| `extensions:get-installed` | renderer → main | Scan `userData/extensions/`, read each subdirectory's `manifest.json`, return `InstalledExtensionInfo[]`. Silent-fail for missing/invalid manifests. |

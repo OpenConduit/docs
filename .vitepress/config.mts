@@ -46,6 +46,7 @@ export default defineConfig({
           items: [
             { text: 'Overview', link: '/extensions/' },
             { text: 'Extension Manifest', link: '/extensions/manifest' },
+            { text: 'Activity Bar Contributions', link: '/extensions/activity-bar' },
             { text: 'Command Contributions', link: '/extensions/commands' },
             { text: 'Settings Contributions', link: '/extensions/settings' },
             { text: 'Bottom Panel Contributions', link: '/extensions/bottom-panel' },
