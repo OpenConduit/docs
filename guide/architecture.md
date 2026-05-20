@@ -29,7 +29,7 @@ OpenConduit is split across two repos: the **Electron shell** (`openconduit-clie
 │  │  Zustand Stores                                 │   │
 │  │  conversationStore · settingsStore · uiStore    │   │
 │  │  analyticsStore · tasksStore · personasStore    │   │
-│  │  filesStore                                     │   │
+│  │  filesStore · (folders + folderFiles in conv.)  │   │
 │  └─────────────────────────────────────────────────┘   │
 │                                                         │
 │  ┌─────────────────────────────────────────────────┐   │

@@ -12,16 +12,34 @@ import { useConversationStore } from '@openconduit/core';
 
 | Action | Signature | Description |
 |---|---|---|
-| `addConversation` | `(opts: { providerId, model }) => Conversation` | Creates and returns a new conversation |
+| `addConversation` | `(opts: { providerId, model, folderId? }) => Conversation` | Creates and returns a new conversation |
 | `updateConversation` | `(id, patch) => void` | Partial update a conversation |
 | `deleteConversation` | `(id) => void` | Deletes a conversation |
 | `openTab` | `(id) => void` | Adds id to `openTabs` |
 | `closeTab` | `(id) => void` | Removes id from `openTabs` |
+| `createFolder` | `(name, parentId?) => ConversationFolder` | Creates a folder (optionally nested) |
+| `updateFolder` | `(id, patch) => void` | Partial update a folder (name, systemPrompt, collapsed…) |
+| `deleteFolder` | `(id) => void` | Recursively deletes folder + subfolders; moves conversations to root |
+| `toggleFolderCollapsed` | `(id) => void` | Toggles the collapsed state of a folder |
+| `moveConversation` | `(convId, folderId: string \| null) => void` | Moves a conversation into a folder (`null` = root) |
+| `addFolderFile` | `(file: Omit<FolderFile, 'id' \| 'createdAt'>) => FolderFile` | Attaches a file to a folder |
+| `deleteFolderFile` | `(id) => void` | Removes a file from a folder |
+| `renameFolderFile` | `(id, name) => void` | Renames a folder file |
 
 | State | Type | Description |
 |---|---|---|
 | `conversations` | `Conversation[]` | All conversations |
 | `openTabs` | `string[]` | Currently open tab ids |
+| `folders` | `ConversationFolder[]` | All folders, persisted |
+| `folderFiles` | `FolderFile[]` | All folder-attached files, persisted |
+
+### Folder AI instructions
+
+Each folder can define a `systemPrompt` that overrides the conversation-level system prompt for all conversations inside it. When a conversation is sent, the nearest ancestor folder with a non-empty `systemPrompt` wins. Subfolders can define their own instructions to shadow their parent.
+
+```ts
+updateFolder(folderId, { systemPrompt: 'You are a code reviewer. Be terse.' });
+```
 
 ## `uiStore`
 

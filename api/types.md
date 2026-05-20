@@ -19,8 +19,44 @@ interface Conversation {
   model: string;
   routingProfileId?: string;
   personaId?: string;
+  folderId?: string | null; // null = root (no folder)
   createdAt: number;
   updatedAt: number;
+}
+```
+
+### `ConversationFolder`
+
+A folder that groups conversations. Folders can be nested via `parentId`.
+
+```ts
+interface ConversationFolder {
+  id: string;
+  name: string;
+  parentId: string | null; // null = top-level folder
+  order: number;
+  collapsed: boolean;
+  systemPrompt?: string;  // AI instructions — overrides conversation system prompt
+                          // cascades to subfolders unless they define their own
+}
+```
+
+### `FolderFile`
+
+A file attached to a folder — either saved from an AI artifact or uploaded by the user.
+
+```ts
+interface FolderFile {
+  id: string;
+  folderId: string;
+  name: string;
+  language?: string;  // e.g. 'ts', 'py', 'md'
+  content: string;
+  mimeType: string;
+  size: number;
+  createdAt: number;
+  source: 'ai-artifact' | 'user-upload';
+  conversationId?: string; // set when saved from an artifact
 }
 ```
 
