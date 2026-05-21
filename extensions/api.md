@@ -104,6 +104,40 @@ Read-only access to shared application state.
 
 ---
 
+## `tools`
+
+Register AI tools that the language model can call during a conversation. See the full [Tool Contributions](/extensions/tools) guide for patterns, settings-aware registration, and limitations.
+
+| Method | Signature | Description |
+|---|---|---|
+| `register` | `(toolDef: Omit<McpTool, 'serverId'>, handler: ToolHandler) → Unsubscribe` | Register a tool + handler. Returns an unsubscribe function that removes the registration. |
+| `list` | `() → McpTool[]` | Returns all tools currently registered by this extension. |
+
+### `ToolHandler`
+
+```ts
+type ToolHandler = (input: Record<string, unknown>) => string | Promise<string>;
+```
+
+The handler receives the model's input object and must return a string result (or throw to report an error).
+
+### Example
+
+```ts
+activate(api) {
+  api.tools.register(
+    {
+      name: 'get_time',
+      description: 'Returns the current UTC time as an ISO 8601 string.',
+      inputSchema: { type: 'object', properties: {} },
+    },
+    () => new Date().toISOString(),
+  );
+},
+```
+
+---
+
 ## Permissions
 
 Write-access methods require the corresponding permission string in the manifest. Attempting a write without the permission logs a console warning and is a no-op.

@@ -12,6 +12,7 @@ OpenConduit has a first-class extension system modeled loosely after VS Code's c
 - Add **bottom panel tabs**
 - Add **notification** messages (via `addNotification` over IPC)
 - Use the **`ExtensionAPI`** in an `activate(api)` hook to read/write conversations, settings, UI state, and shared stores (#55)
+- Register **AI tools** that the language model can call — implemented as plain renderer-side JavaScript functions, no MCP server required
 
 ## How It Works
 
@@ -38,5 +39,6 @@ First-party features are implemented as built-in extensions registered at module
 | `bottomPanelRegistry` + `BottomPanelTab` | ✅ Live — bottom panel tab registration |
 | `addNotification` in `uiStore` | ✅ Live — `AppNotification.source` carries extension id |
 | `ExtensionAPI` + `activate(api)` | ✅ Live — full runtime API surface (#55) |
+| `api.tools.register()` + `contributes.tools` | ✅ Live — renderer-side AI tool contributions |
 
-See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), and [Extension API](/extensions/api) for the API reference.
+See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.
