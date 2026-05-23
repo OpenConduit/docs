@@ -8,6 +8,7 @@ OpenConduit has a first-class extension system modeled loosely after VS Code's c
 
 - Contribute **sidebar panels** via the ActivityBar (Phase 1 & 2 of [#38](https://github.com/OpenConduit/core/issues/38) — live in `@openconduit/core` v2.0.0+)
 - Register **commands** (show in command palette, bind keyboard shortcuts)
+- Register **slash commands** (inline `/command` autocomplete in the chat input)
 - Contribute **settings** (schema-driven UI in the Settings panel)
 - Add **bottom panel tabs**
 - Add **notification** messages (via `addNotification` over IPC)
@@ -35,10 +36,11 @@ First-party features are implemented as built-in extensions registered at module
 |---|---|
 | `extensionRegistry` + `ActivityBarContribution` | ✅ Live — sidebar panel contributions |
 | `commandRegistry` + `CommandContribution` | ✅ Live — command palette + keybindings |
+| `slashCommandRegistry` + `SlashCommand` | ✅ Live — chat input `/` autocomplete |
 | `settingsRegistry` + `SettingsContribution` | ✅ Live — schema-driven settings UI |
 | `bottomPanelRegistry` + `BottomPanelTab` | ✅ Live — bottom panel tab registration |
 | `addNotification` in `uiStore` | ✅ Live — `AppNotification.source` carries extension id |
 | `ExtensionAPI` + `activate(api)` | ✅ Live — full runtime API surface (#55) |
 | `api.tools.register()` + `contributes.tools` | ✅ Live — renderer-side AI tool contributions |
 
-See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.
+See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Slash Commands](/extensions/slash-commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.

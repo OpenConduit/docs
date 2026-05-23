@@ -63,6 +63,11 @@ interface ExtensionManifest {
 |---|---|
 | `activityBarItems` | [Activity Bar Contributions](/extensions/activity-bar) |
 | `commands` | [Command Contributions](/extensions/commands) |
+| `slashCommands` | [Slash Commands](/extensions/slash-commands) |
+| `settingsTab` | [Settings Contributions](/extensions/settings) |
+| `bottomPanelTabs` | [Bottom Panel Contributions](/extensions/bottom-panel) |
+| `tools` | [Tool Contributions](/extensions/tools) |
+| `hooks` | [Extension API](/extensions/api) |
 
 ## `activate(api)`
 
