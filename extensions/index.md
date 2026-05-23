@@ -14,6 +14,9 @@ OpenConduit has a first-class extension system modeled loosely after VS Code's c
 - Add **notification** messages (via `addNotification` over IPC)
 - Use the **`ExtensionAPI`** in an `activate(api)` hook to read/write conversations, settings, UI state, and shared stores (#55)
 - Register **AI tools** that the language model can call — implemented as plain renderer-side JavaScript functions, no MCP server required
+- Contribute **main views** that replace the chat pane with a full-screen component (e.g. Compare Models)
+- Contribute **split pane views** rendered alongside chat in the right split pane
+- Contribute **secondary sidebar panels** as additional tabs in the far-right panel
 
 ## How It Works
 
@@ -42,5 +45,8 @@ First-party features are implemented as built-in extensions registered at module
 | `addNotification` in `uiStore` | ✅ Live — `AppNotification.source` carries extension id |
 | `ExtensionAPI` + `activate(api)` | ✅ Live — full runtime API surface (#55) |
 | `api.tools.register()` + `contributes.tools` | ✅ Live — renderer-side AI tool contributions |
+| `MainViewContribution` + `contributes.mainViews` | ✅ Live — full-pane view replacing ChatArea (#56) |
+| `SplitPaneViewContribution` + `contributes.splitPaneViews` | ✅ Live — right split pane views (#56) |
+| `SecondarySidebarPanelContribution` + `contributes.secondarySidebarPanels` | ✅ Live — secondary sidebar tabs (#56) |
 
-See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Slash Commands](/extensions/slash-commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.
+See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Slash Commands](/extensions/slash-commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [View Contributions](/extensions/views), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.

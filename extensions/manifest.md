@@ -51,6 +51,13 @@ interface ExtensionManifest {
   contributes?: {
     activityBarItems?: ActivityBarContribution[];
     commands?: CommandContribution[];
+    slashCommands?: SlashCommand[];
+    settingsTab?: SettingsContribution;
+    bottomPanelTabs?: BottomPanelTab[];
+    tools?: ToolContribution[];
+    mainViews?: MainViewContribution[];
+    splitPaneViews?: SplitPaneViewContribution[];
+    secondarySidebarPanels?: SecondarySidebarPanelContribution[];
   };
   permissions?: string[];
   activate?: (api: ExtensionAPI) => void | Promise<void>;
@@ -67,6 +74,9 @@ interface ExtensionManifest {
 | `settingsTab` | [Settings Contributions](/extensions/settings) |
 | `bottomPanelTabs` | [Bottom Panel Contributions](/extensions/bottom-panel) |
 | `tools` | [Tool Contributions](/extensions/tools) |
+| `mainViews` | [View Contributions → Main Views](/extensions/views#main-views) |
+| `splitPaneViews` | [View Contributions → Split Pane Views](/extensions/views#split-pane-views) |
+| `secondarySidebarPanels` | [View Contributions → Secondary Sidebar Panels](/extensions/views#secondary-sidebar-panels) |
 | `hooks` | [Extension API](/extensions/api) |
 
 ## `activate(api)`
