@@ -117,6 +117,24 @@ interface ProviderConfig {
 }
 ```
 
+## Request Types
+
+### `SimpleCompletionRequest`
+
+Used with `window.api.chat.complete()` (and `service.chat.complete()` in builtins) for headless LLM calls that return full response text without creating conversation messages. Useful for pipeline steps, background processing, and any extension that needs an LLM response outside the conversation store.
+
+```ts
+interface SimpleCompletionRequest {
+  providerId: string;
+  model: string;
+  messages: Array<{ role: 'user' | 'assistant'; content: string }>;
+  systemPrompt?: string;
+  parameters?: Partial<ModelParameters>;
+}
+```
+
+---
+
 ## MCP Types
 
 ### `McpServerConfig`

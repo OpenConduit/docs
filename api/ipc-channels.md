@@ -2,16 +2,16 @@
 
 All IPC handlers live in `packages/desktop/src/main/ipc.ts`. The context bridge in `preload.ts` exposes `window.api` to the renderer.
 
-## `ai:*`
+## `chat:*`
 
 | Channel | Direction | Description |
 |---|---|---|
-| `ai:stream` | renderer → main | Start a streaming AI request |
-| `ai:stream-chunk` | main → renderer | Delta text chunk from provider |
-| `ai:stream-done` | main → renderer | Stream completed |
-| `ai:stream-error` | main → renderer | Stream error |
-| `ai:list-models` | renderer → main | Fetch available models from provider |
-| `ai:abort` | renderer → main | Abort active stream |
+| `chat:send` | renderer → main | Start a streaming AI request |
+| `chat:complete` | renderer → main | **Headless completion** — returns `{ text: string }` with the full response. No conversation messages created, no stream events sent to renderer. Used by pipeline steps and background processing. |
+| `chat:stream:chunk` | main → renderer | Delta text chunk from provider |
+| `chat:stream:end` | main → renderer | Stream completed |
+| `chat:stream:error` | main → renderer | Stream error |
+| `chat:abort` | renderer → main | Abort active stream |
 
 ## `mcp:*`
 

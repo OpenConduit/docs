@@ -156,6 +156,36 @@ Write-access methods require the corresponding permission string in the manifest
 
 ---
 
+## `service.chat` (builtin extensions only)
+
+First-party builtin extensions (co-located in `src/extensions/builtins/`) can import the `service` object directly from `'../../../services'`. This bypasses the sandboxed `ExtensionAPI` and gives full access to the IPC bridge.
+
+```ts
+import { service } from '../../../services';
+```
+
+| Method | Signature | Description |
+|---|---|---|
+| `send` | `(request: ChatRequest) → Promise<{ messageId: string }>` | Start a streaming AI request. Triggers the normal conversation flow — sends stream events to the renderer, creates assistant messages in the conversation store. |
+| `complete` | `(request: SimpleCompletionRequest) → Promise<{ text: string }>` | **Headless LLM call.** Returns the full response text without creating conversation messages or sending stream events. Useful for pipeline steps and background processing. |
+
+### Example — pipeline step
+
+```ts
+import { service } from '../../../services';
+
+const { text } = await service.chat.complete({
+  providerId: 'openai-default',
+  model: 'gpt-4o',
+  messages: [{ role: 'user', content: prompt }],
+  systemPrompt: 'You are a helpful assistant.',
+});
+```
+
+> `SimpleCompletionRequest` — see [Types → `SimpleCompletionRequest`](/api/types#simplecompletionrequest).
+
+---
+
 ## Sandboxed extensions (`SandboxedPanel`)
 
 Extensions rendered inside a sandboxed `<iframe>` can call API methods over postMessage using the `oc:api` protocol:
