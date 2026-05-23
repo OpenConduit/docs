@@ -17,6 +17,10 @@ OpenConduit has a first-class extension system modeled loosely after VS Code's c
 - Contribute **main views** that replace the chat pane with a full-screen component (e.g. Compare Models)
 - Contribute **split pane views** rendered alongside chat in the right split pane
 - Contribute **secondary sidebar panels** as additional tabs in the far-right panel
+- Contribute **status bar items** rendered in the bottom status bar (Phase 3 — left or right aligned)
+- Register **Zustand store slices** accessible to other extensions via `extensionRegistry.getStore(id)` (Phase 3)
+- Attach **message badges** — per-message annotations rendered as pills in the message metadata row (Phase 3)
+- Register **conversation modes** — plug in a custom send pipeline that replaces the default single-model send path (Phase 3)
 
 ## How It Works
 
@@ -48,5 +52,9 @@ First-party features are implemented as built-in extensions registered at module
 | `MainViewContribution` + `contributes.mainViews` | ✅ Live — full-pane view replacing ChatArea (#56) |
 | `SplitPaneViewContribution` + `contributes.splitPaneViews` | ✅ Live — right split pane views (#56) |
 | `SecondarySidebarPanelContribution` + `contributes.secondarySidebarPanels` | ✅ Live — secondary sidebar tabs (#56) |
+| `StatusBarItemContribution` + `contributes.statusBarItems` | ✅ Live — bottom status bar items, left/right aligned (#38 Phase 3) |
+| `StoreSliceContribution` + `contributes.stores` | ✅ Live — shared Zustand store slices (#38 Phase 3) |
+| `MessageBadgeContribution` + `contributes.messageBadges` | ✅ Live — per-message badge annotations (#38 Phase 3) |
+| `ConversationModeContribution` + `contributes.conversationModes` | ✅ Live — custom send pipeline override (#38 Phase 3) |
 
 See [Extension Manifest](/extensions/manifest), [Activity Bar](/extensions/activity-bar), [Commands](/extensions/commands), [Slash Commands](/extensions/slash-commands), [Settings](/extensions/settings), [Bottom Panel](/extensions/bottom-panel), [View Contributions](/extensions/views), [Extension API](/extensions/api), and [Tool Contributions](/extensions/tools) for the API reference.

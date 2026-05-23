@@ -58,6 +58,10 @@ interface ExtensionManifest {
     mainViews?: MainViewContribution[];
     splitPaneViews?: SplitPaneViewContribution[];
     secondarySidebarPanels?: SecondarySidebarPanelContribution[];
+    statusBarItems?: StatusBarItemContribution[];
+    stores?: StoreSliceContribution[];
+    messageBadges?: MessageBadgeContribution[];
+    conversationModes?: ConversationModeContribution[];
   };
   permissions?: string[];
   activate?: (api: ExtensionAPI) => void | Promise<void>;
@@ -77,6 +81,10 @@ interface ExtensionManifest {
 | `mainViews` | [View Contributions → Main Views](/extensions/views#main-views) |
 | `splitPaneViews` | [View Contributions → Split Pane Views](/extensions/views#split-pane-views) |
 | `secondarySidebarPanels` | [View Contributions → Secondary Sidebar Panels](/extensions/views#secondary-sidebar-panels) |
+| `statusBarItems` | [Status Bar Contributions](/extensions/status-bar) |
+| `stores` | [Store Slice Contributions](/extensions/stores) |
+| `messageBadges` | [Message Badge Contributions](/extensions/message-badges) |
+| `conversationModes` | [Conversation Mode Contributions](/extensions/conversation-modes) |
 | `hooks` | [Extension API](/extensions/api) |
 
 ## `activate(api)`
